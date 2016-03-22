@@ -22,9 +22,6 @@
       "url": "https://github.com/KyleDSwarner/grunt-multibower/blob/master/LICENSE"
     }
   ],
-  "dependencies": {
-    "bower": "1.7.x"
-  },
   "devDependencies": {
     "grunt": "0.4.x",
     "grunt-contrib-jshint": "0.10.x"
