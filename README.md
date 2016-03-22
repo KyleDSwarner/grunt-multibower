@@ -5,19 +5,35 @@ Executing the plugin will scan each the current directory + subdirectories for b
 
 Note: This requires bower to be installed globally, as is recommended.
 
-Options:
+## Options
 
-maxDepth: Sets the maximum subdirectory depth to scan for bower files. 0/undefined indicates unlimited depth. Default: 0
+### maxDepth
+> Sets the maximum subdirectory depth to scan for bower files. 0/undefined indicates unlimited depth.
+Default: 0
 
-force: Setting this value to true forces bower to get the latest versions of all dependencies by deleting the bower_components folder before running the install. Default: false
+### force
+> Setting this value to true forces bower to get the latest versions of all dependencies by deleting the bower_components folder before running the install.
+Default: false
 
-excludeDirs: A list of directories not to search.
-Default: ['.git', 'bower_components', 'node_modules', 'dist', 'grunt', 'release']
+###excludeDirs
+> A list of directories not to search.
+Default: 
+```js
+['.git', 'bower_components', 'node_modules', 'dist', 'grunt', 'release']
+```
 
-displayBowerOutput: Log bower's output. Default: true
+### displayBowerOutput
+> Log bower's output.
+Default: true
 
-debug: Enable detailed logs. Default: false
+### debug
+> Enable detailed logs.
+Default: false
 
-bowerDirectory: the directory to check for to see if bower components already exist. Used in conjunction with force. Default: 'bower_components'
+### bowerDirectory
+> The directory to check for to see if bower components already exist. Used in conjunction with force. 
+Default: 'bower_components'
 
-bowerFilename: The bower filename to check for. Default: 'bower.json'
+### bowerFilename
+> The bower filename to check for.
+Default: 'bower.json'
