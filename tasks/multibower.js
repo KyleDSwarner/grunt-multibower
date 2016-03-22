@@ -27,7 +27,8 @@ module.exports = function(grunt) {
          force: false, //force a complete refresh of all bower items by deleting the directory
          maxDepth: 0, //Limit the subdirectory depth. 0 and undefined mean unlimited.
          excludeDirs: ['.git', 'bower_components', 'node_modules', 'dist', 'grunt', 'release'],
-         verbose: false
+         displayBowerOutput: true,
+         debug: false
       });
 
       _searchDirectory(process.cwd());
@@ -56,6 +57,7 @@ module.exports = function(grunt) {
             try {
                var filePath = dir + "/" + file;
                if(fs.lstatSync(filePath).isDirectory()) {
+                  debug("Found Bower File: " + filePath);
                   _searchDirectory(filePath, currentDepth + 1);
                }
                else if(file === options.bowerFilename) {
@@ -76,27 +78,24 @@ module.exports = function(grunt) {
 
    function runBower(directory) {
       addThreads();
-      log("Running Bower in: " + directory);
+      verbose("Running Bower in: " + directory);
       var bowerCommand = "cd " + directory + " && ";
 
-      if(options.force === true)
-      {
+      if(options.force === true) {
          bowerCommand += "rm -rf " + options.bowerDirectory + " && ";
       }
 
       bowerCommand += cmd;
-
-      verbose("Executing Command: " + bowerCommand);
+      debug("Executing Command: " + bowerCommand);
 
       exec(bowerCommand, function(error, stdout, stderr) {
 
-         verbose("Bower command completed in: " + directory);
-         verbose("Output of Bower command:");
-         verbose(stdout);
+         if(options.displayBowerOutput === true && stdout !== undefined && stdout !== '') {
+            log("Bower command completed in " + directory + ". Output:\n" + stdout);
+         }
 
          if(stderr !== undefined && stderr !== '') {
-            log("Bower warnings logged from: " + directory);
-            log(stderr);
+            log("Bower warnings logged in " + directory + ". Output:\n" + stderr);
          }
 
          finishThread();
@@ -111,7 +110,7 @@ module.exports = function(grunt) {
    function finishThread() {
       pendingThreads--;
       if(pendingThreads === 0) {
-         verbose("--- All Threads Finished! Exiting. ---");
+         debug("--- All Threads Finished! Exiting. ---");
          done();
       }
    }
@@ -121,7 +120,11 @@ module.exports = function(grunt) {
    }
 
    function verbose(message) {
-      if(options.verbose) {
+      grunt.verbose.writeln(message);
+   }
+
+   function debug(message) {
+      if(options.debug) {
          grunt.log.writeln(message);
       }
    }
