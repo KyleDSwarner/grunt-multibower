@@ -1,0 +1,30 @@
+{
+  "name": "grunt-multibower",
+  "title": "Grunt Multibower",
+  "description": "Grunt task to handle bower installs over multiple nested bower files within a repo.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/KyleDSwarner/grunt-multibower",
+  "author": {
+    "name": "Swarner, Kyle",
+    "email": "KyleDSwarner@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KyleDSwarner/grunt-multibower"
+  },
+  "files": [
+    "tasks"
+  ],
+  "bugs": "https://github.com/KyleDSwarner/grunt-multibower/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/KyleDSwarner/grunt-multibower/blob/master/LICENSE"
+    }
+  ],
+  "devDependencies": {
+    "grunt": "0.4.x",
+    "grunt-contrib-jshint": "0.10.x"
+  },
+  "keywords": []
+}
