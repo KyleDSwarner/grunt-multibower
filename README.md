@@ -5,6 +5,19 @@ Executing the plugin will scan each the current directory + subdirectories for b
 
 Note: This requires bower to be installed globally, as is recommended.
 
+## Usage
+
+No special output is required, unless you need to change the config or manage multiple profiles.
+
+```js
+module.exports = {
+	options: {
+		"force": false,
+    	"maxDepth": 5
+	}
+}
+```
+
 ## Options
 
 ### maxDepth
