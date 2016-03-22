@@ -3,6 +3,8 @@ A grunt plugin to handle multiple bower files nested within a single repo
 
 Executing the plugin will scan each the current directory + subdirectories for bower.json files, and run them when they are found, creating a bower_components folder within that directory. 
 
+Note: This requires bower to be installed globally, as is recommended.
+
 Options:
 
 maxDepth: Sets the maximum subdirectory depth to scan for bower files. 0/undefined indicates unlimited depth. Default: 0

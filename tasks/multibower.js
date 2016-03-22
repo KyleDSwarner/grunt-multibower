@@ -13,6 +13,7 @@ module.exports = function(grunt) {
    'use strict';
 
    var pendingThreads = 0;
+   var timeout = 0;
    var options;
    var done;
    var cmd;
@@ -61,7 +62,9 @@ module.exports = function(grunt) {
                   _searchDirectory(filePath, currentDepth + 1);
                }
                else if(file === options.bowerFilename) {
-                  runBower(dir);
+                  var timeoutValue = timeout;
+                  timeout += 500;
+                  runBower(dir, timeoutValue);
                }
             }
             catch(err) {
@@ -76,7 +79,7 @@ module.exports = function(grunt) {
       });
    }
 
-   function runBower(directory) {
+   function runBower(directory, timeoutOffset) {
       addThreads();
       verbose("Running Bower in: " + directory);
       var bowerCommand = "cd " + directory + " && ";
@@ -88,18 +91,22 @@ module.exports = function(grunt) {
       bowerCommand += cmd;
       debug("Executing Command: " + bowerCommand);
 
-      exec(bowerCommand, function(error, stdout, stderr) {
+      //Timeout is used to offset each parallel bower execution.
+      //This is done in an effort to avoid issues with the bower cache when used in parallel
+      setTimeout(function() {
+         exec(bowerCommand, function(error, stdout, stderr) {
 
-         if(options.displayBowerOutput === true && stdout !== undefined && stdout !== '') {
-            log("Bower command completed in " + directory + ". Output:\n" + stdout);
+            if(options.displayBowerOutput === true && stdout !== undefined && stdout !== '') {
+               log("Bower command completed in " + directory + ". Output:\n\n" + stdout);
+            }
+
+            if(stderr !== undefined && stderr !== '') {
+               log("Bower warnings logged in " + directory + ". Output:\n\n" + stderr);
+            }
+
+            finishThread();
          }
-
-         if(stderr !== undefined && stderr !== '') {
-            log("Bower warnings logged in " + directory + ". Output:\n" + stderr);
-         }
-
-         finishThread();
-      });
+      )}, timeoutOffset);
    }
 
    function addThreads(size) {
