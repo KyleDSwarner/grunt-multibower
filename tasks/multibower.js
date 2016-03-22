@@ -76,7 +76,7 @@ module.exports = function(grunt) {
 
    function runBower(directory) {
       addThreads();
-      log("Running Bower in Directory: " + directory);
+      log("Running Bower in: " + directory);
       var bowerCommand = "cd " + directory + " && ";
 
       if(options.force === true)
@@ -90,12 +90,12 @@ module.exports = function(grunt) {
 
       exec(bowerCommand, function(error, stdout, stderr) {
 
-         verbose("Bower command completed in directory: " + directory);
+         verbose("Bower command completed in: " + directory);
          verbose("Output of Bower command:");
          verbose(stdout);
 
          if(stderr !== undefined && stderr !== '') {
-            log("Bower warnings logged from directory: " + directory);
+            log("Bower warnings logged from: " + directory);
             log(stderr);
          }
 
