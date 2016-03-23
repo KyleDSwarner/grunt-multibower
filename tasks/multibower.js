@@ -12,14 +12,16 @@ var exec = require('child_process').exec;
 module.exports = function(grunt) {
    'use strict';
 
-   var pendingThreads = 0;
-   var timeout = 0;
+   var pendingThreads;
+   var timeout;
    var options;
    var done;
    var cmd;
    
    grunt.registerMultiTask('multibower', 'Find and execute installs for nested bower files', function() {
       done = this.async();
+      timeout = 0;
+      pendingThreads = 0;
       cmd = "bower install";
 
       options = this.options({
@@ -63,7 +65,7 @@ module.exports = function(grunt) {
                }
                else if(file === options.bowerFilename) {
                   var timeoutValue = timeout;
-                  timeout += 500;
+                  timeout += 1500;
                   runBower(dir, timeoutValue);
                }
             }
